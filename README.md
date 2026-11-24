@@ -1,6 +1,8 @@
 # Capy Free Models
 
-Capy 免费模型的 AnyFlows `provider.lifecycle` 插件。插件会读取 Capy 模型目录，只返回标记为广告免费且价格为零的模型。
+这是为 AnyFlows 开发的 `provider.lifecycle` 插件，用于接入 Capy 免费模型。插件会读取 Capy 模型目录，只返回标记为广告免费且价格为零的模型。
+
+宿主仓库见 [AnyFlows（ChuqiCloud/AnyFlows）](https://github.com/ChuqiCloud/AnyFlows)。
 
 当前默认模型为 `deepseek/deepseek-v4.1-flash-ads` 和 `zai/glm-5.3-flash-ads`。
 
