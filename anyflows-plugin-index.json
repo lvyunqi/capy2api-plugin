@@ -13,6 +13,26 @@
       "categories": ["provider", "models"],
       "versions": [
         {
+          "version": "0.1.5",
+          "source": {
+            "kind": "github_release",
+            "archiveUrl": "https://github.com/lvyunqi/capy2api-plugin/releases/download/v0.1.5/capy-free-provider-0.1.5.afplugin",
+            "sha256": "4b61affaa31aeb195cb88c5ecaa3e81372361ba707f8a95fe77856cc138dcbec",
+            "repository": "https://github.com/lvyunqi/capy2api-plugin",
+            "commit": "f88e7398967a569774cc47adf1db482752811c5b"
+          },
+          "archiveUrl": "https://github.com/lvyunqi/capy2api-plugin/releases/download/v0.1.5/capy-free-provider-0.1.5.afplugin",
+          "sha256": "4b61affaa31aeb195cb88c5ecaa3e81372361ba707f8a95fe77856cc138dcbec",
+          "commit": "f88e7398967a569774cc47adf1db482752811c5b",
+          "engines": {"anyflows": ">=0.3.0-beta.12"},
+          "capabilities": ["provider.lifecycle"],
+          "publishedAt": "2026-11-24T06:01:33Z",
+          "changelog": "Fixes the required Cookie array setup form so the GitHub repository installation can be configured.",
+          "minHostVersion": "0.3.0-beta.12",
+          "downloadBytes": 34738,
+          "runtime": "python"
+        },
+        {
           "version": "0.1.4",
           "source": {
             "kind": "github_release",
