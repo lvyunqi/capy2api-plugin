@@ -27,6 +27,8 @@ python scripts/package_plugin.py
 }
 ```
 
+从 GitHub 仓库安装后，插件会显示待配置状态。打开部署卡片的「配置」，在 `sessions` 中点击「添加项目」并粘贴完整 Cookie。多账号时每个账号单独添加一项。未添加 Cookie 时会提示缺少必填项，至少添加一项后即可保存并启用。
+
 在 Provider 绑定中启用 `sessionEnabled`，设置 `upstreamResponseMode` 为 `non_streaming`，并配置三个 endpoint：
 
 | ID | 地址 | 方法 | 路径 | WebSocket |

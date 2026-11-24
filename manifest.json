@@ -1,7 +1,7 @@
 {
   "pluginId": "org.anyflows.capy-free-provider",
   "displayName": "Capy free model Provider",
-  "pluginVersion": "0.1.4",
+  "pluginVersion": "0.1.5",
   "contractRange": {
     "minimum": {"major": 1, "minor": 0},
     "maximum": {"major": 1, "minor": 0}
@@ -27,10 +27,23 @@
     "required": ["sessions"],
     "properties": {
       "sessions": {
+        "title": "Capy Cookies",
+        "description": "Add at least one Cookie string. In the setup form, add a row for each Capy account.",
+        "x-ui-label": "Capy Cookie",
+        "x-ui-description": "Required. Add one complete Cookie string per Capy account.",
         "type": "array",
         "minItems": 1,
         "maxItems": 64,
-        "items": {"type": "string", "minLength": 1, "maxLength": 32768}
+        "items": {
+          "type": "string",
+          "title": "Cookie",
+          "x-ui-label": "Cookie",
+          "x-ui-description": "Paste the Cookie value copied from the Capy browser request.",
+          "x-ui-placeholder": "Paste a complete Capy Cookie",
+          "format": "textarea",
+          "minLength": 1,
+          "maxLength": 32768
+        }
       },
       "apiEndpoint": {"type": "string", "maxLength": 64},
       "clerkEndpoint": {"type": "string", "maxLength": 64},

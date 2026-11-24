@@ -23,17 +23,26 @@ class PackagePluginTests(unittest.TestCase):
         index = json.loads((ROOT / "anyflows-plugin-index.json").read_text(encoding="utf-8"))
         entry = index["plugins"][0]
         version = entry["versions"][0]
-        archive = ROOT / "dist" / "capy-free-provider-0.1.4.afplugin"
+        manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
+        archive = ROOT / "dist" / f"capy-free-provider-{version['version']}.afplugin"
         digest = hashlib.sha256(archive.read_bytes()).hexdigest()
 
         self.assertEqual(index["format"], 1)
         self.assertEqual(entry["id"], "org.anyflows.capy-free-provider")
-        self.assertEqual(version["version"], "0.1.4")
+        self.assertEqual(version["version"], manifest["pluginVersion"])
+        self.assertRegex(version["version"], r"^\d+\.\d+\.\d+$")
         self.assertEqual(version["sha256"], digest)
-        self.assertEqual(version["source"]["sha256"], digest)
+        self.assertEqual(version["source"]["sha256"], version["sha256"])
         self.assertEqual(version["source"]["kind"], "github_release")
-        self.assertEqual(len(version["source"]["commit"]), 40)
+        self.assertEqual(version["source"]["repository"], entry["repository"])
+        self.assertRegex(version["source"]["commit"], r"^[a-f0-9]{40}$")
         self.assertEqual(version["capabilities"], ["provider.lifecycle"])
+        self.assertEqual(
+            version["archiveUrl"],
+            "https://github.com/lvyunqi/capy2api-plugin/releases/download/"
+            f"v{version['version']}/capy-free-provider-{version['version']}.afplugin",
+        )
+        self.assertEqual(version["downloadBytes"], archive.stat().st_size)
 
     def test_package_contains_manifest_and_required_runtime_files(self):
         with tempfile.TemporaryDirectory() as temporary:

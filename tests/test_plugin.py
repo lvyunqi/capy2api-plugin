@@ -29,6 +29,21 @@ def step(session_id: str, state: dict, status: int, body, config: dict = CONFIG)
 
 
 class CapyProviderTests(unittest.TestCase):
+    def test_required_cookie_configuration_has_a_usable_array_schema(self):
+        schema = plugin.MANIFEST["configSchema"]
+        sessions = schema["properties"]["sessions"]
+        item = sessions["items"]
+
+        self.assertIn("sessions", schema["required"])
+        self.assertEqual(sessions["type"], "array")
+        self.assertNotIn("default", sessions)
+        self.assertEqual(sessions["minItems"], 1)
+        self.assertEqual(item["type"], "string")
+        self.assertEqual(item["format"], "textarea")
+        self.assertEqual(item["minLength"], 1)
+        self.assertTrue(item["x-ui-label"])
+        self.assertTrue(item["x-ui-placeholder"])
+
     def tearDown(self):
         plugin._cookie_cursor = 0
         with plugin._session_runtime_lock:
