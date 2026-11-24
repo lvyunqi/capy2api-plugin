@@ -14,3 +14,5 @@ jobs:
           python-version: "3.12"
       - run: python scripts/package_plugin.py
       - run: python -m unittest discover -s tests -v
+        env:
+          CAPY_VERIFY_PUBLISHED_RELEASE: "1"

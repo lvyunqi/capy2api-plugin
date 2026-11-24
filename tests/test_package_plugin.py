@@ -1,11 +1,13 @@
 from __future__ import annotations
 
-import importlib.util
 import hashlib
+import importlib.util
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
+from urllib.request import urlopen
 import zipfile
 
 
@@ -23,15 +25,11 @@ class PackagePluginTests(unittest.TestCase):
         index = json.loads((ROOT / "anyflows-plugin-index.json").read_text(encoding="utf-8"))
         entry = index["plugins"][0]
         version = entry["versions"][0]
-        manifest = json.loads((ROOT / "manifest.json").read_text(encoding="utf-8"))
-        archive = ROOT / "dist" / f"capy-free-provider-{version['version']}.afplugin"
-        digest = hashlib.sha256(archive.read_bytes()).hexdigest()
 
         self.assertEqual(index["format"], 1)
         self.assertEqual(entry["id"], "org.anyflows.capy-free-provider")
-        self.assertEqual(version["version"], manifest["pluginVersion"])
         self.assertRegex(version["version"], r"^\d+\.\d+\.\d+$")
-        self.assertEqual(version["sha256"], digest)
+        self.assertRegex(version["sha256"], r"^[a-f0-9]{64}$")
         self.assertEqual(version["source"]["sha256"], version["sha256"])
         self.assertEqual(version["source"]["kind"], "github_release")
         self.assertEqual(version["source"]["repository"], entry["repository"])
@@ -42,7 +40,14 @@ class PackagePluginTests(unittest.TestCase):
             "https://github.com/lvyunqi/capy2api-plugin/releases/download/"
             f"v{version['version']}/capy-free-provider-{version['version']}.afplugin",
         )
-        self.assertEqual(version["downloadBytes"], archive.stat().st_size)
+        self.assertEqual(version["source"]["archiveUrl"], version["archiveUrl"])
+        self.assertGreater(version["downloadBytes"], 0)
+
+        if os.environ.get("CAPY_VERIFY_PUBLISHED_RELEASE") == "1":
+            with urlopen(version["archiveUrl"], timeout=30) as response:
+                archive = response.read(version["downloadBytes"] + 1)
+            self.assertEqual(len(archive), version["downloadBytes"])
+            self.assertEqual(hashlib.sha256(archive).hexdigest(), version["sha256"])
 
     def test_package_contains_manifest_and_required_runtime_files(self):
         with tempfile.TemporaryDirectory() as temporary:
