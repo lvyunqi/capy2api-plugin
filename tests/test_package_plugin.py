@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
 import json
 from pathlib import Path
 import tempfile
@@ -18,6 +19,22 @@ SPEC.loader.exec_module(package_plugin)
 
 
 class PackagePluginTests(unittest.TestCase):
+    def test_market_index_matches_release_archive(self):
+        index = json.loads((ROOT / "anyflows-plugin-index.json").read_text(encoding="utf-8"))
+        entry = index["plugins"][0]
+        version = entry["versions"][0]
+        archive = ROOT / "dist" / "capy-free-provider-0.1.4.afplugin"
+        digest = hashlib.sha256(archive.read_bytes()).hexdigest()
+
+        self.assertEqual(index["format"], 1)
+        self.assertEqual(entry["id"], "org.anyflows.capy-free-provider")
+        self.assertEqual(version["version"], "0.1.4")
+        self.assertEqual(version["sha256"], digest)
+        self.assertEqual(version["source"]["sha256"], digest)
+        self.assertEqual(version["source"]["kind"], "github_release")
+        self.assertEqual(len(version["source"]["commit"]), 40)
+        self.assertEqual(version["capabilities"], ["provider.lifecycle"])
+
     def test_package_contains_manifest_and_required_runtime_files(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)

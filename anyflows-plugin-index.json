@@ -1,0 +1,38 @@
+{
+  "format": 1,
+  "title": "Capy Free Models",
+  "description": "AnyFlows Provider for Capy's ad-supported free models.",
+  "plugins": [
+    {
+      "id": "org.anyflows.capy-free-provider",
+      "title": "Capy Free Models",
+      "description": "Uses multiple Capy cookies to serve available ad-supported free models through device side threads.",
+      "author": "lvyunqi",
+      "repository": "https://github.com/lvyunqi/capy2api-plugin",
+      "homepage": "https://github.com/lvyunqi/capy2api-plugin",
+      "categories": ["provider", "models"],
+      "versions": [
+        {
+          "version": "0.1.4",
+          "source": {
+            "kind": "github_release",
+            "archiveUrl": "https://github.com/lvyunqi/capy2api-plugin/releases/download/v0.1.4/capy-free-provider-0.1.4.afplugin",
+            "sha256": "c5f506a62080ec6f8a17a6bd56007138f32a3250d030b2b6ec2a06a025b9ad18",
+            "repository": "https://github.com/lvyunqi/capy2api-plugin",
+            "commit": "b8f6ca2d125dee2a23ba97d75221a6777ebe41aa"
+          },
+          "archiveUrl": "https://github.com/lvyunqi/capy2api-plugin/releases/download/v0.1.4/capy-free-provider-0.1.4.afplugin",
+          "sha256": "c5f506a62080ec6f8a17a6bd56007138f32a3250d030b2b6ec2a06a025b9ad18",
+          "commit": "b8f6ca2d125dee2a23ba97d75221a6777ebe41aa",
+          "engines": {"anyflows": ">=0.3.0-beta.12"},
+          "capabilities": ["provider.lifecycle"],
+          "publishedAt": "2026-11-24T03:39:54Z",
+          "changelog": "First release. Adds multi-cookie rotation, free-model validation, realtime event handling, REST reconciliation, and child-thread cleanup.",
+          "minHostVersion": "0.3.0-beta.12",
+          "downloadBytes": 34190,
+          "runtime": "python"
+        }
+      ]
+    }
+  ]
+}
