@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+dist/
+build/
+*.afplugin
+*.zip
+.codex/
+.env
+.env.*
+cookies*.txt
+cookies*.json
+capy-cookies*
+.idea/
+.vscode/

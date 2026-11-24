@@ -1,0 +1,55 @@
+{
+  "pluginId": "org.anyflows.capy-free-provider",
+  "displayName": "Capy free model Provider",
+  "pluginVersion": "0.1.4",
+  "contractRange": {
+    "minimum": {"major": 1, "minor": 0},
+    "maximum": {"major": 1, "minor": 0}
+  },
+  "capabilities": [
+    {
+      "id": "provider.lifecycle",
+      "version": 1,
+      "access": "read",
+      "sideEffect": "external_read"
+    }
+  ],
+  "authenticationModes": ["none"],
+  "limits": {
+    "maxConcurrency": 8,
+    "requestTimeoutMs": 120000,
+    "maxResponseBytes": 262144,
+    "maxPageSize": 100
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["sessions"],
+    "properties": {
+      "sessions": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 64,
+        "items": {"type": "string", "minLength": 1, "maxLength": 32768}
+      },
+      "apiEndpoint": {"type": "string", "maxLength": 64},
+      "clerkEndpoint": {"type": "string", "maxLength": 64},
+      "realtimeEndpoint": {"type": "string", "maxLength": 64},
+      "orgId": {"type": ["string", "null"], "maxLength": 128},
+      "templateJam": {"type": ["string", "null"], "maxLength": 128},
+      "deleteAfter": {"type": "boolean"},
+      "models": {
+        "type": "array",
+        "maxItems": 64,
+        "items": {"type": "string", "maxLength": 128}
+      },
+      "clerkJsVersion": {"type": "string", "maxLength": 32},
+      "webOrigin": {"type": "string", "maxLength": 256},
+      "clientFeatures": {"type": "string", "maxLength": 256},
+      "clientSurface": {"type": "string", "maxLength": 64},
+      "clientTimezone": {"type": "string", "maxLength": 64},
+      "userAgent": {"type": "string", "maxLength": 512},
+      "pollIntervalMs": {"type": "integer", "minimum": 250, "maximum": 10000}
+    }
+  }
+}
